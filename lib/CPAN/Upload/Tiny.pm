@@ -38,7 +38,7 @@ sub upload_file {
 	my $url = $UPLOAD_URI;
 	$url =~ s[//][//$self->{user}:$self->{password}@];
 	my $result = $tiny->post_multipart($url, {
-		HIDDENNAME => $self->{user},
+		HIDDENNAME                        => $self->{user},
 		CAN_MULTIPART                     => 1,
 		pause99_add_uri_httpupload        => {
 			filename     => File::Basename::basename($file),
@@ -46,7 +46,7 @@ sub upload_file {
 			content_type => 'application/gzip',
 		},
 		pause99_add_uri_uri               => '',
-		SUBMIT_pause99_add_uri_httpupload => " Upload this file from my disk ",
+		SUBMIT_pause99_add_uri_httpupload => ' Upload this file from my disk ',
 	});
 
 	die "Upload failed: $result->{reason}\n" if !$result->{success};
@@ -81,6 +81,8 @@ sub read_config_file {
 			$conf{$k} = $v;
 		}
 	}
+	Carp::croak('No user set in configuration file')     if not $conf{user};
+	Carp::croak('No password set in configuration file') if not $conf{password};
 
 	return \%conf;
 }
