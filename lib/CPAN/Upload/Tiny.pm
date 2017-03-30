@@ -34,7 +34,7 @@ sub _read_file {
 sub upload_file {
 	my ($self, $file) = @_;
 
-	my $tiny = HTTP::Tiny->new();
+	my $tiny = HTTP::Tiny->new(verify_SSL => 1);
 	my $url = $UPLOAD_URI;
 	$url =~ s[//][//$self->{user}:$self->{password}@];
 	my $result = $tiny->post_multipart($url, {
