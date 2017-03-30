@@ -92,7 +92,7 @@ sub read_config_file {
 
 =method new($username, $password)
 
-This creates a new C<CPAN::Upload::Tiny> object. It requres a C<$username> and a C<$password>.
+This creates a new C<CPAN::Upload::Tiny> object. It requires a C<$username> and a C<$password>.
 
 =method new_from_config($filename)
 
@@ -101,3 +101,17 @@ This creates a new C<CPAN::Upload::Tiny> based on a F<.pause> configuration file
 =method upload_file($filename)
 
 This uploads the given file to PAUSE/CPAN.
+
+=head1 SEE ALSO
+
+=over 4
+
+=item * L<CPAN::Uploader|CPAN::Uploader>
+
+A heavier but more featureful CPAN uploader
+
+=item * L<Config::Identity|Config::Identity>
+
+This allows you to encrypt your configuration file.
+
+=back
