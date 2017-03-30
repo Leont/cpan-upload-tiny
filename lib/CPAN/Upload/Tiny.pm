@@ -24,24 +24,22 @@ sub new_from_config {
 	bless $config, $class;
 }
 
-sub _read_file {
-	my $filename = shift;
-	open my $fh, '<:raw', $filename or die "Could not open $filename: $!";
-	return do { local $/; <$fh> };
-}
-
 sub upload_file {
-	my ($self, $file) = @_;
+	my ($self, $filename) = @_;
+
+	open my $fh, '<:raw', $filename or die "Could not open $filename: $!";
+	my $content = do { local $/; <$fh> };
 
 	my $tiny = HTTP::Tiny->new(verify_SSL => 1);
 	my $url = $UPLOAD_URI;
 	$url =~ s[//][//$self->{user}:$self->{password}@];
+
 	my $result = $tiny->post_multipart($url, {
 		HIDDENNAME                        => $self->{user},
 		CAN_MULTIPART                     => 1,
 		pause99_add_uri_httpupload        => {
-			filename     => File::Basename::basename($file),
-			content      => _read_file($file),
+			filename     => File::Basename::basename($filename),
+			content      => $content,
 			content_type => 'application/gzip',
 		},
 		pause99_add_uri_uri               => '',
