@@ -84,6 +84,12 @@ sub read_config_file {
 
 #ABSTRACT: A tiny CPAN uploader
 
+=head1 SYNOPSIS
+
+ use CPAN::Upload::Tiny;
+ my $upload = CPAN::Upload::Tiny->new_from_config($optional_file);
+ $upload->upload_file($filename);
+
 =method new($username, $password)
 
 This creates a new C<CPAN::Upload::Tiny> object. It requres a C<$username> and a C<$password>.
