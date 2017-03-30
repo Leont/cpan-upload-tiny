@@ -5,7 +5,6 @@ use warnings;
 
 use Carp ();
 use File::Basename ();
-use File::Spec;
 use HTTP::Tiny;
 use HTTP::Tiny::Multipart;
 
@@ -55,7 +54,7 @@ sub upload_file {
 }
 
 sub read_config_file {
-	my $filename = shift || File::Spec->catfile(glob('~'), '.pause');
+	my $filename = shift || glob('~/.pause');
 	die 'Missing configuration file' unless -r $filename;
 
 	my %conf;
