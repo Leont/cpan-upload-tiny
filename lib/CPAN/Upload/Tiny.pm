@@ -21,7 +21,7 @@ sub new {
 
 sub new_from_config {
 	my ($class, $filename) = @_;
-	my $config = $class->read_config_file($filename);
+	my $config = read_config_file($filename);
 	bless $config, $class;
 }
 
@@ -55,12 +55,8 @@ sub upload_file {
 }
 
 sub read_config_file {
-	my ($class, $filename) = @_;
-
-	if (!defined $filename) {
-		$filename = File::Spec->catfile(glob('~'), '.pause');
-	}
-	die 'Missing configuration file' unless -e $filename and -r _;
+	my $filename = shift || File::Spec->catfile(glob('~'), '.pause');
+	die 'Missing configuration file' unless -r $filename;
 
 	my %conf;
 	if ( eval { require Config::Identity } ) {
@@ -76,7 +72,7 @@ sub read_config_file {
 
 			next if not length or $_ =~ /^\s*#/;
 
-			my ($k, $v) = / ^\s* (user|password) \s+ (.+?) \s* $ /x;
+			my ($k, $v) = / ^ \s* (user|password) \s+ (.+?) \s* $ /x;
 			Carp::croak "Multiple enties for $k" if $conf{$k};
 			$conf{$k} = $v;
 		}
@@ -86,7 +82,6 @@ sub read_config_file {
 
 	return \%conf;
 }
-
 
 1;
 
