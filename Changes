@@ -1,6 +1,8 @@
 Revision history for CPAN-Upload-Tiny
 
 {{$NEXT}}
+
+0.002     2017-03-31 15:44:53+02:00 Europe/Amsterdam
           Added a cpan-upload-tiny script
 
 0.001     2017-03-30 21:24:02+02:00 Europe/Amsterdam
