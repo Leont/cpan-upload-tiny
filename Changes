@@ -2,6 +2,7 @@ Revision history for CPAN-Upload-Tiny
 
 {{$NEXT}}
           - Ignore entries other than the username or password
+          - Give feedback on success
 
 0.002     2017-03-31 15:44:53+02:00 Europe/Amsterdam
           Added a cpan-upload-tiny script
