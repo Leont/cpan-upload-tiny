@@ -70,7 +70,7 @@ sub read_config_file {
 			next if not length or $_ =~ /^\s*#/;
 
 			if (my ($k, $v) = / ^ \s* (user|password) \s+ (.+?) \s* $ /x) {
-				Carp::croak "Multiple enties for $k" if $conf{$k};
+				Carp::croak "Multiple entries for $k" if $conf{$k};
 				$conf{$k} = $v;
 			}
 		}
