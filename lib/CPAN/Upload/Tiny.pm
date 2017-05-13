@@ -11,9 +11,9 @@ use HTTP::Tiny::Multipart;
 my $UPLOAD_URI = $ENV{CPAN_UPLOADER_UPLOAD_URI} || 'https://pause.perl.org/pause/authenquery';
 
 sub new {
-	my ($class, $name, $password) = @_;
+	my ($class, $user, $password) = @_;
 	return bless {
-		name     => $name,
+		user     => $user,
 		password => $password,
 	}, $class;
 }
