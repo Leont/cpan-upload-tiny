@@ -11,9 +11,9 @@ use HTTP::Tiny::Multipart;
 my $UPLOAD_URI = $ENV{CPAN_UPLOADER_UPLOAD_URI} || 'https://pause.perl.org/pause/authenquery';
 
 sub new {
-	my ($class, $name, $password) = @_;
+	my ($class, $user, $password) = @_;
 	return bless {
-		name     => $name,
+		user     => $user,
 		password => $password,
 	}, $class;
 }
@@ -90,6 +90,10 @@ sub read_config_file {
  use CPAN::Upload::Tiny;
  my $upload = CPAN::Upload::Tiny->new_from_config($optional_file);
  $upload->upload_file($filename);
+
+=head1 DESCRIPTION
+
+This is a light-weight module for uploading files to CPAN.
 
 =method new($username, $password)
 
