@@ -47,7 +47,10 @@ sub upload_file {
 		SUBMIT_pause99_add_uri_httpupload => ' Upload this file from my disk ',
 	}, { headers => { Authorization => $auth } });
 
-	die "Upload failed: $result->{reason}\n" if !$result->{success};
+	if (!$result->{success}) {
+		my $key = $result->{status} == 599 ? 'content' : 'reason';
+		die "Upload failed: $result->{$key}\n";
+	}
 
 	return;
 }
