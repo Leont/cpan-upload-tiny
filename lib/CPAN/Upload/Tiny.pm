@@ -5,6 +5,7 @@ use warnings;
 
 use Carp ();
 use File::Basename ();
+use MIME::Base64 ();
 use HTTP::Tiny;
 use HTTP::Tiny::Multipart;
 
@@ -31,10 +32,10 @@ sub upload_file {
 	my $content = do { local $/; <$fh> };
 
 	my $tiny = HTTP::Tiny->new(verify_SSL => 1);
-	my $url = $UPLOAD_URI;
-	$url =~ s[//][//$self->{user}:$self->{password}@];
 
-	my $result = $tiny->post_multipart($url, {
+	my $auth = 'Basic ' . MIME::Base64::encode("$self->{user}:$self->{password}", '');
+
+	my $result = $tiny->post_multipart($UPLOAD_URI, {
 		HIDDENNAME                        => $self->{user},
 		CAN_MULTIPART                     => 1,
 		pause99_add_uri_httpupload        => {
@@ -44,7 +45,7 @@ sub upload_file {
 		},
 		pause99_add_uri_uri               => '',
 		SUBMIT_pause99_add_uri_httpupload => ' Upload this file from my disk ',
-	});
+	}, { headers => { Authorization => $auth } });
 
 	die "Upload failed: $result->{reason}\n" if !$result->{success};
 
