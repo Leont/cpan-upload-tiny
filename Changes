@@ -1,6 +1,8 @@
 Revision history for CPAN-Upload-Tiny
 
 {{$NEXT}}
+
+0.006     2018-04-23 11:55:10+02:00 Europe/Amsterdam
           - Re-add ExecDir to the dzil configuration
 
 0.005     2018-04-19 16:58:28+02:00 Europe/Amsterdam
