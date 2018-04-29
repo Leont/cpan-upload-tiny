@@ -9,7 +9,7 @@ use MIME::Base64 ();
 use HTTP::Tiny;
 use HTTP::Tiny::Multipart;
 
-my $UPLOAD_URI = $ENV{CPAN_UPLOADER_UPLOAD_URI} || 'https://pause.perl.org/pause/authenquery';
+my $UPLOAD_URI = $ENV{CPAN_UPLOADER_UPLOAD_URI} || 'https://pause.perl.org/pause/authenquery?ACTION=add_uri';
 
 sub new {
 	my ($class, $user, $password) = @_;
