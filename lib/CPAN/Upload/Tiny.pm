@@ -13,6 +13,8 @@ my $UPLOAD_URI = $ENV{CPAN_UPLOADER_UPLOAD_URI} || 'https://pause.perl.org/pause
 
 sub new {
 	my ($class, $user, $password) = @_;
+	Carp::croak('No user set')     if not defined $user;
+	Carp::croak('No password set') if not defined $password;
 	return bless {
 		user     => $user,
 		password => $password,
@@ -56,7 +58,7 @@ sub upload_file {
 
 sub read_config_file {
 	my $filename = shift || glob('~/.pause');
-	die 'Missing configuration file' unless -r $filename;
+	return unless -r $filename;
 
 	my %conf;
 	if ( eval { require Config::Identity } ) {
@@ -78,8 +80,6 @@ sub read_config_file {
 			}
 		}
 	}
-	Carp::croak('No user set in configuration file')     if not $conf{user};
-	Carp::croak('No password set in configuration file') if not $conf{password};
 
 	return @conf{'user', 'password'};
 }
