@@ -21,8 +21,7 @@ sub new {
 
 sub new_from_config {
 	my ($class, $filename) = @_;
-	my $config = read_config_file($filename);
-	bless $config, $class;
+	return $class->new(read_config_file($filename));
 }
 
 sub upload_file {
@@ -82,7 +81,7 @@ sub read_config_file {
 	Carp::croak('No user set in configuration file')     if not $conf{user};
 	Carp::croak('No password set in configuration file') if not $conf{password};
 
-	return \%conf;
+	return @conf{'user', 'password'};
 }
 
 1;
