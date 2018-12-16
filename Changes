@@ -1,6 +1,7 @@
 Revision history for CPAN-Upload-Tiny
 
 {{$NEXT}}
+          - Add fallback to ask for credentials on command line
 
 0.008     2018-05-02 20:28:36+02:00 Europe/Amsterdam
           - Add ?ACTION=add_uri to PAUSE upload URI

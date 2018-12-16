@@ -26,6 +26,32 @@ sub new_from_config {
 	return $class->new(read_config_file($filename));
 }
 
+my $has_readkey = eval { require Term::ReadKey };
+*read_key = $has_readkey ? \&Term::ReadKey::ReadMode : sub {};
+
+sub prompt {
+	my ($mess, $mode) = @_;
+
+	local $| = 1;
+	local $\;
+	print "$mess? ";
+
+	read_key($mode);
+	my $ans = <STDIN> // '';
+	read_key(0);
+	print "\n" if $mode > 1 && $has_readkey;
+	chomp $ans;
+	return $ans;
+}
+
+sub new_from_config_or_stdin {
+	my ($class, $filename) = @_;
+	my ($user, $pass) = read_config_file($filename);
+	$user ||= prompt("What is your PAUSE ID", 1);
+	$pass ||= prompt("What is your PAUSE password", 2);
+	return $class->new($user, $pass);
+}
+
 sub upload_file {
 	my ($self, $filename) = @_;
 
