@@ -132,6 +132,10 @@ This creates a new C<CPAN::Upload::Tiny> object. It requires a C<$username> and 
 
 This creates a new C<CPAN::Upload::Tiny> based on a F<.pause> configuration file. It will use C<Config::Identity> if available.
 
+=method new_from_config_or_stdin($filename)
+
+This creates a new C<CPAN::Upload::Tiny> much like C<new_from_config>, but if a C<.pause> file doesn't exist will prompt for the username and password.
+
 =method upload_file($filename)
 
 This uploads the given file to PAUSE/CPAN.
