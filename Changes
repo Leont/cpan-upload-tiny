@@ -1,6 +1,7 @@
 Revision history for CPAN-Upload-Tiny
 
 {{$NEXT}}
+          - Assume Term::ReadKey is always present
           - Add missing documentation for new_from_config_or_stdin
 
 0.009     2018-12-16 16:31:13+01:00 Europe/Amsterdam
